@@ -29,4 +29,31 @@ describe Oystercard do
     expect{ subject.deduct(2)}.to change {subject.balance}.by(-2)
   end
 
+  # it 'touches_in for journey' do
+  #   expect(subject).to respond_to(:touch_in)
+  # end
+
+  # it 'touches_out for journey' do 
+  #   expect(subject).to respond_to(:touch_out)
+  # end
+
+  it 'is initially not in journey?' do 
+    expect(subject).not_to be_in_journey
+  end 
+
+  it 'is user in journey?' do
+    subject.touch_in
+    expect(subject).to be_in_journey
+  end
+
+#  it 'can touch out' do
+#     subject.touch_in
+#     subject.touch_out
+#     expect(subject).not_to be_in_journey
+#   end
+
+  # it '@balance must be at least 1 to touch_in' do
+   
+  #   expect {subject.touch_in}.to raise_error 'You cannot ride - you broke'
+  # end 
 end 

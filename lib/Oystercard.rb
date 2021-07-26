@@ -6,6 +6,7 @@ MAXIMUM_BALANCE = 90
 
   def initialize(balance = DEFAULT_BALANCE)
     @balance = balance
+    
   end
 
   def top_up(money)
@@ -15,8 +16,20 @@ MAXIMUM_BALANCE = 90
 
   def deduct(fare)
    @balance = @balance -= fare
+  end
+
+  def touch_in
+    # fail 'You cannot ride - you broke' if @balance < 1
+
+  end
+
+  def touch_out
     
   end
+
+  def in_journey?
+    false
+  end 
 
 end
 
