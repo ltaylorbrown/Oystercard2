@@ -2,7 +2,9 @@ require 'Oystercard'
 
 describe Oystercard do
 
-  let(:station){double :station}
+  let(:entry_station){double :station}
+  let(:exit_station){double :station}
+
 
   it 'default balance of 0' do
     expect(subject.balance).to eq 0
@@ -27,34 +29,46 @@ describe Oystercard do
 
   it 'is user in journey?' do
     subject.top_up(50)
-    subject.touch_in(station)
+    subject.touch_in(entry_station)
     expect(subject).to be_in_journey
   end
 
  it 'can touch out' do
     subject.top_up(10)
-    subject.touch_in(station)
-    subject.touch_out
+    subject.touch_in(entry_station)
+    subject.touch_out(exit_station)
     expect(subject).not_to be_in_journey
   end
 
   it '@balance must be at least 1 to touch_in' do
     subject.top_up(0)
-    expect{ subject.touch_in(station) }.to raise_error 'You cannot ride - you broke'
+    expect{ subject.touch_in(entry_station) }.to raise_error 'You cannot ride - you broke'
   end 
 
   it 'fare deducted once journey complete' do 
     subject.top_up(50)
-    subject.touch_in(station)
-    expect { subject.touch_out }.to change {subject.balance}.by(-Oystercard::MINIMUM_FARE)
+    subject.touch_in(entry_station)
+    expect { subject.touch_out(exit_station) }.to change {subject.balance}.by(-Oystercard::MINIMUM_FARE)
   end 
 
   it 'remember the entry station after touch_in' do
     subject.top_up(50)
-    subject.touch_in(station)
-    expect(subject.entry_station).to eq station 
+    subject.touch_in(entry_station)
+    expect(subject.entry_station).to eq entry_station 
   end 
 
-
+  it 'stores the exit station' do
+    subject.top_up(10)
+    subject.touch_in(entry_station)
+    subject.touch_out(exit_station)
+    expect(subject.exit_station).to eq exit_station
+  end
+    
+  it 'stores journey in journey_log' do
+    subject.top_up(10)
+    subject.touch_in(entry_station)
+    subject.touch_out(exit_station)
+    expect(subject.journey_log).to eq [{entry_station => entry_station, exit_station => exit_station}]
+  end 
 
 end 
