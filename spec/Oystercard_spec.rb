@@ -42,18 +42,21 @@ describe Oystercard do
   end 
 
   it 'is user in journey?' do
+    subject.top_up(50)
     subject.touch_in
     expect(subject).to be_in_journey
   end
 
-#  it 'can touch out' do
-#     subject.touch_in
-#     subject.touch_out
-#     expect(subject).not_to be_in_journey
-#   end
+ it 'can touch out' do
+    subject.top_up(10)
+    subject.touch_in
+    subject.touch_out
+    expect(subject).not_to be_in_journey
+  end
 
-  # it '@balance must be at least 1 to touch_in' do
-   
-  #   expect {subject.touch_in}.to raise_error 'You cannot ride - you broke'
-  # end 
+  it '@balance must be at least 1 to touch_in' do
+    subject.top_up(0)
+    expect{ subject.touch_in }.to raise_error 'You cannot ride - you broke'
+  end 
+
 end 

@@ -12,7 +12,7 @@ MAXIMUM_BALANCE = 90
 
   def top_up(money)
     @balance = @balance += money
-    fail 'Maximum balance exceeded' if @balance > MAXIMUM_BALANCE 
+    raise 'Maximum balance exceeded' if @balance > MAXIMUM_BALANCE 
   end 
 
   def deduct(fare)
@@ -20,7 +20,8 @@ MAXIMUM_BALANCE = 90
   end
 
   def touch_in
-    # fail 'You cannot ride - you broke' if @balance < 1
+    raise 'You cannot ride - you broke' if no_funds
+
     @journey = true
   end
 
@@ -32,6 +33,12 @@ MAXIMUM_BALANCE = 90
     return @journey ? true : false
   end 
 
+  private 
+
+  def no_funds
+    return @balance == DEFAULT_BALANCE ? true : false
+  end
+  
 end
 
 
