@@ -1,12 +1,14 @@
 class Station
+attr_reader :zone, :name
 
   def initialize(station, zone)
-    @station = station
+    @name = station
     @zone = zone
   end
 
-  def zone
-    @zone
+  def printer
+    [@name, @zone]
   end
-
+ 
+  
 end
