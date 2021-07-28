@@ -4,6 +4,7 @@ describe Oystercard do
 
   let(:entry_station){double :station}
   let(:exit_station){double :station}
+  let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
 
 
   it 'default balance of 0' do
@@ -64,11 +65,15 @@ describe Oystercard do
     expect(subject.exit_station).to eq exit_station
   end
     
+  it 'journey log empty' do 
+    expect(subject.journey_log).to be_empty
+  end 
+
   it 'stores journey in journey_log' do
     subject.top_up(10)
     subject.touch_in(entry_station)
     subject.touch_out(exit_station)
-    expect(subject.journey_log).to eq [{entry_station => entry_station, exit_station => exit_station}]
+    expect(subject.journey_log).to include journey
   end 
 
 end 
