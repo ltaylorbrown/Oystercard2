@@ -1,5 +1,5 @@
 class Oystercard
-attr_reader :balance, :entry_station, :exit_station, :journey , :journey_log
+attr_reader :balance, :journey, :journey_log, :entry_station, :exit_station
 
 DEFAULT_BALANCE = 0
 MAXIMUM_BALANCE = 90
@@ -22,13 +22,13 @@ MINIMUM_FARE = 1
     raise 'You cannot ride - you broke' if no_funds
     @journey = true
     @entry_station = station
-    journey_log << {entry_station: station}
+    
   end
 
   def touch_out(station)
     deduct(MINIMUM_FARE)
     @exit_station = station
-    journey_log << {exit_station: station}
+    journey_log << {entry_station: @entry_station, exit_station: station}
     @journey = false
     @entry_station = nil
   end

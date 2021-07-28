@@ -2,8 +2,8 @@ require 'Oystercard'
 
 describe Oystercard do
 
-  # let(:entry_station){double :station}
-  # let(:exit_station){double :station}
+  let(:entry_station){double :station}
+  let(:exit_station){double :station}
   # let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
 
 describe '#initialize' do
@@ -76,9 +76,9 @@ end
 
   it 'stores journey in journey_log' do
     subject.top_up(10)
-    subject.touch_in(entry_station)
-    subject.touch_out(exit_station)
-    expect(subject.journey_log).to include journey
+    subject.touch_in('Byker')
+    subject.touch_out('Monument')
+    expect(subject.journey_log[0]).to eq ({:entry_station => 'Byker', :exit_station => 'Monument'})
   end 
 
 end 
