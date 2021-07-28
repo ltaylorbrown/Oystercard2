@@ -1,8 +1,5 @@
 class Oystercard
-attr_reader :balance 
-attr_accessor :journey , :journey_log
-attr_reader :entry_station 
-attr_reader :exit_station
+attr_reader :balance, :entry_station, :exit_station, :journey , :journey_log
 
 DEFAULT_BALANCE = 0
 MAXIMUM_BALANCE = 90

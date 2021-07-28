@@ -2,15 +2,17 @@ require 'Oystercard'
 
 describe Oystercard do
 
-  let(:entry_station){double :station}
-  let(:exit_station){double :station}
-  let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
+  # let(:entry_station){double :station}
+  # let(:exit_station){double :station}
+  # let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
 
-
+describe '#initialize' do
   it 'default balance of 0' do
     expect(subject.balance).to eq 0
   end 
+end
 
+describe '#top_up' do 
   it 'can respond to top_up' do 
     expect(subject).to respond_to(:top_up).with(1).argument
   end
@@ -23,6 +25,9 @@ describe Oystercard do
     subject.top_up(90)
     expect{ subject.top_up(5)}.to raise_error 'Maximum balance exceeded'
   end
+end 
+
+
 
   it 'is initially not in journey?' do 
     expect(subject).not_to be_in_journey
